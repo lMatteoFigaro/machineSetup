@@ -1,0 +1,46 @@
+# This file contains tasks for installing Go from tar.gz
+
+- name: Get the latest Go version information (optional but useful)
+  ansible.builtin.uri:
+    url: https://go.dev/VERSION?m=text
+    return_content: yes
+  register: go_latest_version
+  changed_when: false
+
+- name: Set Go download URL
+  set_fact:
+    go_download_url: "https://go.dev/dl/go{{ go_latest_version.content | trim }}.linux-amd64.tar.gz"
+
+- name: Ensure Go install directory exists
+  file:
+    path: /usr/local/go
+    state: directory
+    mode: "0755"
+
+- name: Download Go tar.gz archive
+  get_url:
+    url: "{{ go_download_url }}"
+    dest: /tmp/go.tar.gz
+
+- name: Extract Go archive
+  unarchive:
+    src: /tmp/go.tar.gz
+    dest: /usr/local/
+    remote_src: yes
+
+- name: Create a symlink for the go executable
+  file:
+    src: "/usr/local/go/bin/go"
+    dest: "/usr/local/bin/go" # Link in a directory in the system's PATH
+    state: link
+
+- name: Create a symlink for the gofmt executable (useful for Go development)
+  file:
+    src: "/usr/local/go/bin/gofmt"
+    dest: "/usr/local/bin/gofmt" # Link in a directory in the system's PATH
+    state: link
+
+- name: Clean up downloaded archive (optional)
+  file:
+    path: /tmp/go.tar.gz
+    state: absent

@@ -1,0 +1,53 @@
+- name: Initial Machine Setup (Update, Upgrade, Install Packages)
+  hosts: localhost
+  become: yes # Run tasks with root privileges
+
+  tasks:
+    - name: Upgrade all installed packages
+      apt:
+        upgrade: yes
+      tags:
+        - packages
+        - update
+
+    - name: Install common utilities and development packages
+      apt:
+        name:
+          - git
+          - build-essential # Essential for compiling software
+          - nano # Another common text editor
+          - curl
+          - vim
+          - htop
+          - tmux
+          - fzf
+          - ripgrep
+          - i3
+          - stow
+          - pavucontrol
+          - arandr
+          - zsh
+        state: present
+      tags:
+        - packages
+        - install
+
+    - name: Import Neovim installation tasks
+      import_tasks: nvim.yml
+      tags:
+        - packages
+        - nvim
+    - name: Import golang installation tasks
+      import_tasks: go.yml
+      tags:
+        - packages
+        - golang
+    - name: Install NVM using the official script
+      shell: |
+        #!/bin/bash
+        NVM_VERSION=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh" | bash
+      args:
+        executable: /bin/bash
+        creates: "$HOME/.nvm/nvm.sh"
+      become: no # Run as the user

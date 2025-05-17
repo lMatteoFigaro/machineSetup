@@ -1,0 +1,37 @@
+---
+- name: Install Neovim from tar.gz archive
+  hosts: localhost
+  become: yes # Need root to install to system directories
+
+  vars:
+    nvim_install_dir: /opt/nvim # Directory where Neovim will be installed
+
+  tasks:
+    - name: Ensure install directory exists
+      file:
+        path: "{{ nvim_install_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Download Neovim tar.gz archive
+      get_url:
+        url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+        dest: /tmp/nvim-linux-x86_64.tar.gz
+
+    - name: Extract Neovim archive
+      unarchive:
+        src: /tmp/nvim-linux-x86_64.tar.gz
+        dest: "{{ nvim_install_dir }}"
+        remote_src: yes # Indicate the source file is on the remote machine
+        extra_opts: [--strip-components=1] # Strip the top-level directory (usually 'nvim-linux64')
+
+    - name: Create a symlink to the nvim executable
+      file:
+        src: "{{ nvim_install_dir }}/bin/nvim"
+        dest: /usr/local/bin/nvim # Or another directory in your PATH
+        state: link
+
+    - name: Clean up downloaded archive (optional)
+      file:
+        path: /tmp/nvim-linux-x86_64.tar.gz
+        state: absent
