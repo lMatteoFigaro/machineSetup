@@ -33,12 +33,12 @@
         - install
 
     - name: Import Neovim installation tasks
-      import_tasks: nvim.yml
+      import_tasks: nvim.yaml
       tags:
         - packages
         - nvim
     - name: Import golang installation tasks
-      import_tasks: go.yml
+      import_tasks: go.yaml
       tags:
         - packages
         - golang
