@@ -57,6 +57,13 @@
       args:
         executable: /bin/bash # Ensure it runs with bash
         creates: /usr/bin/brave-browser # Make this task idempotent - check if brave-browser executable exists
+    - name: Install Rust using rustup.rs script
+      shell: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      args:
+        executable: /bin/bash
+        creates: "$HOME/.rustup/bin/rustup" # Adjust path if needed if you change install location
+      become: no # IMPORTANT: Run as the user
     - name: Install NVM using the official script
       shell: |
         #!/bin/bash
