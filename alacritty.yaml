@@ -2,13 +2,13 @@
 - name: Clone Alacritty source code
   git:
     repo: https://github.com/alacritty/alacritty.git
-    dest: "/home/{{ ansible_user }}/alacritty_source" # Clone to the user's home directory
+    dest: "/home/{{ ansible_user_id }}/alacritty_source" # Clone to the user's home directory
   become: no # Clone as the user
 - name: Build and install Alacritty using cargo install
   shell: |
     #!/bin/bash
     export PATH="$HOME/.cargo/bin:$PATH" # Ensure cargo is in the PATH for this shell session
-    cd "/home/{{ ansible_user }}/alacritty_source"
+    cd "/home/{{ ansible_user_id }}/alacritty_source"
     cargo install --path .
   args:
     executable: /bin/bash
