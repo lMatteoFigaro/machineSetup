@@ -49,6 +49,7 @@
         - packages
         - install
     - name: Import Neovim installation tasks
+      become: yes
       import_tasks: nvim.yaml
       tags:
         - packages

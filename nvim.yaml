@@ -1,6 +1,5 @@
 ---
 - name: Ensure install directory exists
-  become: yes
   file:
     path: "{{ nvim_install_dir }}"
     state: directory
