@@ -31,7 +31,6 @@
       tags:
         - packages
         - install
-
     - name: Import Neovim installation tasks
       import_tasks: nvim.yaml
       tags:
