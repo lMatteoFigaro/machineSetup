@@ -1,15 +1,8 @@
 # This file contains tasks for installing Go from tar.gz
 
-- name: Get the latest Go version information (optional but useful)
-  ansible.builtin.uri:
-    url: https://go.dev/VERSION?m=text
-    return_content: yes
-  register: go_latest_version
-  changed_when: false
-
 - name: Set Go download URL
   set_fact:
-    go_download_url: "https://go.dev/dl/{{ go_latest_version.content | head -n 1 }}.linux-amd64.tar.gz"
+    go_download_url: "https://go.dev/dl/go1.24.3.linux-amd64.tar.gz"
 
 - name: Ensure Go install directory exists
   file:
