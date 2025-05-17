@@ -1,0 +1,20 @@
+# This file contains tasks for installing Visual Studio Code
+
+- name: Download VS Code .deb package
+  get_url:
+    url: https://vscode.download.prss.microsoft.com/dbazure/download/stable/848b80aeb52026648a8ff9f7c45a9b0a80641e2e/code_1.100.2-1747260578_amd64.deb # Replace with the latest version URL
+    dest: /tmp/vscode-latest.deb
+    mode: "0644"
+    # Consider adding checksum verification here!
+
+- name: Install VS Code from .deb package
+  become: yes
+  apt:
+    deb: /tmp/vscode-latest.deb
+    state: present
+    allow_downgrade: yes # Allows upgrading even if apt thinks it's a downgrade
+
+- name: Clean up downloaded .deb package (optional)
+  file:
+    path: /tmp/vscode-latest.deb
+    state: absent

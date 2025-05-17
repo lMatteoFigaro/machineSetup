@@ -63,11 +63,16 @@
       tags:
         - packages
         - chrome
+    - name: Install vscode latest
+      import_tasks: vscode.yaml
+      tags:
+        - packages
+        - vscode
     - name: Install slack latest
       import_tasks: slack.yaml
       tags:
         - packages
-        - chrome
+        - slack
     - name: Install Brave Browser using the official script
       shell: |
         curl -fsS https://dl.brave.com/install.sh | sh
