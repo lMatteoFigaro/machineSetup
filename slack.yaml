@@ -1,0 +1,19 @@
+# This file contains tasks for installing Slack
+- name: Download Slack .deb package
+  get_url:
+    url: https://downloads.slack-edge.com/desktop-releases/linux/x64/4.43.51/slack-desktop-4.43.51-amd64.deb # Replace with the latest version if needed
+    dest: /tmp/slack-desktop-latest.deb
+    mode: "0644"
+    # Consider adding checksum verification here!
+
+- name: Install Slack from .deb package
+  become: yes
+  apt:
+    deb: /tmp/slack-desktop-latest.deb
+    state: present
+    allow_downgrade: yes # Important: Allows upgrading even if apt thinks it's a downgrade
+
+- name: Clean up downloaded .deb package (optional)
+  file:
+    path: /tmp/slack-desktop-latest.deb
+    state: absent

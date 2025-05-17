@@ -44,6 +44,7 @@
           - libxcb-xfixes0-dev
           - libxkbcommon-dev
           - python3
+          - steam
         state: present
       tags:
         - packages
@@ -60,6 +61,11 @@
         - golang
     - name: Install chrome latest
       import_tasks: chrome.yaml
+      tags:
+        - packages
+        - chrome
+    - name: Install slack latest
+      import_tasks: slack.yaml
       tags:
         - packages
         - chrome
