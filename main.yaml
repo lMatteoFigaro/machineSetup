@@ -7,6 +7,7 @@
 
   tasks:
     - name: Upgrade all installed packages
+      become: yes
       apt:
         upgrade: yes
       tags:
@@ -14,6 +15,7 @@
         - update
 
     - name: Install common utilities and development packages
+      become: yes
       apt:
         name:
           - git
