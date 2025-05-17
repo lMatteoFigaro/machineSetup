@@ -5,6 +5,7 @@
     mode: "0644" # Set file permissions
 
 - name: Install Google Chrome from .deb package
+  become: yes
   apt:
     deb: /tmp/google-chrome-stable_current_amd64.deb
     state: present

@@ -58,11 +58,6 @@
       tags:
         - packages
         - golang
-    - name: Install alacritty
-      import_tasks: alacritty.yaml
-      tags:
-        - packages
-        - alacritty
     - name: Install chrome latest
       import_tasks: chrome.yaml
       tags:
@@ -81,6 +76,11 @@
         executable: /bin/bash
         creates: "$HOME/.rustup/bin/rustup" # Adjust path if needed if you change install location
       become: no # IMPORTANT: Run as the user
+    - name: Install alacritty
+      import_tasks: alacritty.yaml
+      tags:
+        - packages
+        - alacritty
     - name: Install NVM using the official script
       shell: |
         #!/bin/bash
