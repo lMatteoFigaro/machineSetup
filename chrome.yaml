@@ -1,0 +1,17 @@
+- name: Download Google Chrome .deb package
+  get_url:
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dest: /tmp/google-chrome-stable_current_amd64.deb
+    mode: "0644" # Set file permissions
+    checksum: sha256:a1b2c3d4e5f6... # Optional but recommended: Add checksum for verification
+
+- name: Install Google Chrome from .deb package
+  apt:
+    deb: /tmp/google-chrome-stable_current_amd64.deb
+    state: present
+    update_cache: yes # Update cache just in case dependencies are needed
+
+- name: Remove downloaded .deb package (optional)
+  file:
+    path: /tmp/google-chrome-stable_current_amd64.deb
+    state: absent

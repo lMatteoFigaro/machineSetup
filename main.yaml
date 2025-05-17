@@ -44,6 +44,11 @@
       tags:
         - packages
         - golang
+    - name: Install chrome latest
+      import_tasks: chrome.yaml
+      tags:
+        - packages
+        - chrome
     - name: Install NVM using the official script
       shell: |
         #!/bin/bash
