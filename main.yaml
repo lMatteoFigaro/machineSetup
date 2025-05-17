@@ -102,3 +102,10 @@
         executable: /bin/bash # Ensure it runs with bash
         creates: "$HOME/.oh-my-zsh" # Make this task idempotent - check if the Oh My Zsh directory exists
       become: no # This script is designed to run as the user and install into the home directory
+    - name: Install Zed editor using the official script
+      shell: |
+        curl -f https://zed.dev/install.sh | sh
+      args:
+        executable: /bin/bash # Ensure it runs with bash
+        creates: "$HOME/.local/bin/zed" # Make this task idempotent - check if the zed executable exists in the default install location
+      become: no # This script is designed to run as the user and install into the home directory
