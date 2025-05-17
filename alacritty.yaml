@@ -1,48 +1,18 @@
 ---
-- name: Ensure install directory exists
-  file:
-    path: "{{ alacritty_install_dir }}"
-    state: directory
-    mode: "0755"
-
-- name: Download Alacritty release archive
-  get_url:
-    url: "{{ alacritty_release_url }}"
-    dest: "/tmp/alacritty-{{ alacritty_version }}.tar.gz"
-
-- name: Extract Alacritty archive
-  unarchive:
-    src: "/tmp/alacritty-{{ alacritty_version }}.tar.gz"
-    dest: "{{ alacritty_install_dir }}"
-    remote_src: yes
-    extra_opts: [--strip-components=1] # Strip the top-level directory
-
-# Add the Alacritty executable to the system's PATH
-- name: Create a symlink for the alacritty executable
-  file:
-    src: "{{ alacritty_install_dir }}/alacritty"
-    dest: /usr/local/bin/alacritty
-    state: link
-
-# Optional: Install the Alacritty man page
-- name: Install Alacritty man page
-  copy:
-    src: "{{ alacritty_install_dir }}/alacritty.man"
-    dest: /usr/local/share/man/man1/alacritty.1
-    remote_src: yes
-
-# Optional: Install the Alacritty desktop entry (for application menus)
-- name: Install Alacritty desktop entry
-  copy:
-    src: "{{ alacritty_install_dir }}/alacritty.desktop"
-    dest: /usr/share/applications/alacritty.desktop
-    remote_src: yes
-
-# Optional: Install Alacritty icon
-# You'll need to find the icon file (often in the release or a separate repo)
-# and copy it to /usr/share/icons/hicolor/scalable/apps/alacritty.svg (or appropriate size/format)
-
-- name: Clean up downloaded archive (optional)
-  file:
-    path: "/tmp/alacritty-{{ alacritty_version }}.tar.gz"
-    state: absent
+- name: Clone Alacritty source code
+  git:
+    repo: https://github.com/alacritty/alacritty.git
+    dest: "/home/{{ ansible_user }}/alacritty_source" # Clone to the user's home directory
+  become: no # Clone as the user
+- name: Build and install Alacritty using cargo install
+  shell: |
+    #!/bin/bash
+    export PATH="$HOME/.cargo/bin:$PATH" # Ensure cargo is in the PATH for this shell session
+    cd "/home/{{ ansible_user }}/alacritty_source"
+    cargo install --path .
+  args:
+    executable: /bin/bash
+    creates: "$HOME/.cargo/bin/alacritty" # Make task idempotent
+  register: cargo_install_output
+  changed_when: "'Installed package alacritty' in cargo_install_output.stdout or 'Replacing' in cargo_install_output.stdout" # Basic idempotency check
+  become: no # Run as the user
