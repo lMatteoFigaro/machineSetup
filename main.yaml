@@ -44,7 +44,6 @@
           - libxcb-xfixes0-dev
           - libxkbcommon-dev
           - python3
-          - steam
         state: present
       tags:
         - packages
