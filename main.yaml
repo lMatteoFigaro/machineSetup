@@ -4,6 +4,9 @@
 
   vars:
     nvim_install_dir: /opt/nvim # Directory where Neovim will be installed
+    alacritty_version: 0.13.0 # Specify the desired version
+    alacritty_release_url: "https://github.com/alacritty/alacritty/releases/download/v{{ alacritty_version }}/alacritty-linux-x86_64-unknown-linux-gnu.tar.gz"
+    alacritty_install_dir: /opt/alacritty # Where to install the files
 
   tasks:
     - name: Upgrade all installed packages
@@ -46,6 +49,11 @@
       tags:
         - packages
         - golang
+    - name: Install alacritty
+      import_tasks: alacritty.yaml
+      tags:
+        - packages
+        - alacritty
     - name: Install chrome latest
       import_tasks: chrome.yaml
       tags:
