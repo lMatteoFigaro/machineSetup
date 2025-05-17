@@ -1,6 +1,6 @@
 - name: Initial Machine Setup (Update, Upgrade, Install Packages)
   hosts: localhost
-  become: no # Run tasks without root privileges
+  become: yes # Run tasks with root privileges
 
   vars:
     nvim_install_dir: /opt/nvim # Directory where Neovim will be installed
