@@ -56,6 +56,7 @@
         - nvim
     - name: Import golang installation tasks
       import_tasks: go.yaml
+      become: yes
       tags:
         - packages
         - golang
