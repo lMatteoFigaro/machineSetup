@@ -11,7 +11,7 @@
     - name: Upgrade all installed packages
       become: yes
       apt:
-        update: yes
+        update_cache: yes
         upgrade: yes
       tags:
         - packages
