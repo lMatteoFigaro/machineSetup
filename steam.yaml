@@ -23,6 +23,7 @@
     # Consider adding checksum verification here!
 
 - name: Install Steam from .deb package
+  become: yes
   apt:
     deb: /tmp/steam_latest.deb
     state: present
