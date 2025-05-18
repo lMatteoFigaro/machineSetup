@@ -44,6 +44,7 @@
           - libxcb-xfixes0-dev
           - libxkbcommon-dev
           - python3
+          - jq
         state: present
       tags:
         - packages
@@ -60,6 +61,12 @@
       tags:
         - packages
         - golang
+    - name: Import ziglang installation tasks
+      import_tasks: zig.yaml
+      become: yes
+      tags:
+        - packages
+        - zig
     - name: Install chrome latest
       import_tasks: chrome.yaml
       tags:
