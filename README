@@ -1,0 +1,51 @@
+# Debian Development Machine Setup
+
+This Ansible playbook automates the setup of a Debian-based development machine with a collection of common tools and applications.
+
+## Prerequisites
+
+*   A Debian-based machine (physical or virtual).
+*   Ansible installed on your control machine.
+*   The target user should have `sudo` privileges configured.
+
+## Usage
+
+**Run the playbook:**
+    Execute the playbook from your Ansible control machine. You will likely need to provide the `sudo` password for the user on the target machine. The `-K` flag prompts for the `become` (sudo) password.
+
+    ```bash
+    ansible-playbook main.yaml -K
+    ```
+
+## Included Software
+
+This playbook installs or sets up the following:
+
+*   System updates and common utilities
+*   Neovim
+*   Golang
+*   Zig
+*   Google Chrome
+*   Steam
+*   VS Code
+*   Slack
+*   Brave Browser
+*   Rust (via rustup)
+*   NVM (Node Version Manager)
+*   Oh My Zsh
+*   Zed Editor
+*   Alacritty
+
+*(Note: Some installations are done via official scripts or downloaded binaries. Ensure you trust the source of these files.)*
+
+## Customization
+
+*   **Task Files:** Edit the individual `.yaml` files (e.g., `nvim.yaml`, `go.yaml`) to adjust installation methods or versions.
+*   **Variables:** Modify variables in `main.yaml` or task files as needed (e.g., `nvim_install_dir`).
+*   **Tags:** Use `--tags <tag_name>` when running the playbook to execute only specific parts (e.g., `--tags nvim` to only install Neovim).
+
+## Troubleshooting
+
+*   Ensure SSH access is working.
+*   Verify the target user has `sudo` access and you enter the correct password when prompted by `-K`.
+*   Check Ansible's output for specific error messages if the playbook fails.
