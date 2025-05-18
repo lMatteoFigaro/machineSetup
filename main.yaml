@@ -123,6 +123,11 @@
         executable: /bin/bash # Ensure it runs with bash
         creates: "$HOME/.oh-my-zsh" # Make this task idempotent - check if the Oh My Zsh directory exists
       become: no # This script is designed to run as the user and install into the home directory
+    - name: Set Zsh as the default shell for the user
+      ansible.builtin.user:
+        name: "{{ ansible_user }}" # The user whose shell to change
+        shell: /usr/bin/zsh # The path to the zsh executable
+      become: yes # Need root privileges to change a user's default shell
     - name: Install Zed editor using the official script
       shell: |
         curl -f https://zed.dev/install.sh | sh
