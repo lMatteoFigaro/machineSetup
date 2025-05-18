@@ -1,6 +1,6 @@
 ---
 - name: Install FortiClient VPN Agent
-  hosts: localhost# Define the hosts or group where you want to install FortiClient
+  hosts: localhost # Define the hosts or group where you want to install FortiClient
   become: yes # Need root privileges for package installation
 
   vars:
