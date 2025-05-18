@@ -74,6 +74,11 @@
       tags:
         - packages
         - chrome
+    - name: Install steam latest
+      import_tasks: steam.yaml
+      tags:
+        - packages
+        - steam
     - name: Install vscode latest
       import_tasks: vscode.yaml
       tags:
