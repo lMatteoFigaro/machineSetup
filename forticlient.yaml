@@ -1,0 +1,40 @@
+---
+- name: Install FortiClient VPN Agent
+  hosts: localhost# Define the hosts or group where you want to install FortiClient
+  become: yes # Need root privileges for package installation
+
+  vars:
+    forticlient_deb_url: https://links.fortinet.com/forticlient/deb/vpnagent
+    forticlient_deb_dest: /tmp/forticlient-vpnagent-latest.deb
+
+  tasks:
+    - name: Install necessary prerequisite packages
+      apt:
+        name:
+          - libnss3-tools # As identified in your manual steps
+          - iptables # As identified in your manual steps
+          # Add any other necessary dependencies here if they are not pulled in automatically
+        state: present
+        update_cache: yes # Ensure apt knows about these packages
+
+    - name: Download FortiClient VPN Agent .deb package
+      get_url:
+        url: "{{ forticlient_deb_url }}"
+        dest: "{{ forticlient_deb_dest }}"
+        mode: "0644"
+        # Consider adding checksum verification here if possible
+
+    - name: Install FortiClient VPN Agent from .deb package
+      apt:
+        deb: "{{ forticlient_deb_dest }}"
+        state: present
+        allow_downgrade: yes # Important for external .deb installations
+
+    - name: Clean up downloaded .deb package (optional)
+      file:
+        path: "{{ forticlient_deb_dest }}"
+        state: absent
+
+    # Consider adding tasks here to configure the VPN connection after installation.
+    # This might involve copying configuration files, using command-line tools provided by FortiClient, etc.
+    # This is highly dependent on how you configure FortiClient VPN connections.

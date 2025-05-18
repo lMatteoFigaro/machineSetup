@@ -17,6 +17,13 @@ This Ansible playbook automates the setup of a Debian-based development machine 
     ansible-playbook main.yaml -K
     ```
 
+**Run the playbook for forticlent**
+It should be run after the main playbook
+
+    ```bash
+    ansible-playbook forticlient.yaml -K
+    ```
+
 ## Included Software
 
 This playbook installs or sets up the following:
