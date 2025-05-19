@@ -3,12 +3,13 @@
   become: yes
   apt:
     name:
-      - gtk4
-      - libadwaita
+      - libgtk-4-dev
+      - libadwaita-1-dev
       - blueprint-compiler
-      - pkg-config
       - gettext
-      # Add any other necessary dependencies here if they are not pulled in automatically
+      - libxml2-utils
+      - git
+        # Add any other necessary dependencies here if they are not pulled in automatically
     state: present
     update_cache: yes # Ensure apt knows about these packages
 - name: Clone Ghostty source code
