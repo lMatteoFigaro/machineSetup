@@ -1,0 +1,41 @@
+# This file contains tasks for installing the Elasticvue AppImage
+
+- name: Get the latest Elasticvue release information (optional but useful)
+  uri:
+    url: https://api.github.com/repos/cars10/elasticvue/releases/latest
+    return_content: yes
+  register: elasticvue_latest_release
+  changed_when: false
+  delegate_to: localhost # Run this task on the Ansible control machine
+
+- name: Set Elasticvue AppImage download URL and filename
+  set_fact:
+    elasticvue_version: "{{ elasticvue_latest_release.json.tag_name | trim_prefix('v') }}"
+    elasticvue_appimage_filename: "elasticvue_{{ elasticvue_version }}_amd64.AppImage"
+    elasticvue_appimage_url: "https://github.com/cars10/elasticvue/releases/download/v{{ elasticvue_version }}/{{ elasticvue_appimage_filename }}"
+
+- name: Ensure AppImage destination directory exists
+  file:
+    path: /opt/elasticvue # Or another suitable location like /usr/local/bin/appimages
+    state: directory
+    mode: "0755"
+  become: yes # Need root to create directory in /opt/
+
+- name: Download Elasticvue AppImage
+  get_url:
+    url: "{{ elasticvue_appimage_url }}"
+    dest: "/opt/elasticvue/{{ elasticvue_appimage_filename }}"
+    mode: "0755" # Make the AppImage executable
+    # Consider adding checksum verification here!
+  become: yes # Need root to write to /opt/
+
+- name: Create a symlink to the Elasticvue AppImage (optional)
+  file:
+    src: "/opt/elasticvue/{{ elasticvue_appimage_filename }}"
+    dest: /usr/local/bin/elasticvue # Or another directory in your PATH
+    state: link
+  become: yes # Need root to write to /usr/local/bin/
+
+# You might consider adding tasks to set up a desktop entry for Elasticvue
+# if you want it to appear in application menus. This would involve creating
+# a .desktop file and copying it to /usr/share/applications/.
