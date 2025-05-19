@@ -17,10 +17,10 @@
     repo: https://github.com/ghostty-org/ghostty
     dest: "/home/{{ ansible_user_id }}/dev/ghostty" # Clone to the user's home directory
   become: no # Clone as the user
-- name: Build and install Alacritty using cargo install
+- name: Build and install ghostty
   shell: |
     #!/bin/bash
-    cd "/home/{{ ansible_user_id }}/ghostty"
+    cd "/home/{{ ansible_user_id }}/dev/ghostty"
     zig build -Doptimize=ReleaseFast
   args:
     executable: /bin/bash
