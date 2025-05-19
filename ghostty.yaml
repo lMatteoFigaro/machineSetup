@@ -2,8 +2,11 @@
 - name: Install necessary prerequisite packages
   apt:
     name:
-      - libnss3-tools # As identified in your manual steps
-      - iptables # As identified in your manual steps
+      - gtk4
+      - libadwaita
+      - blueprint-compiler
+      - pkg-config
+      - gettext
       # Add any other necessary dependencies here if they are not pulled in automatically
     state: present
     update_cache: yes # Ensure apt knows about these packages
