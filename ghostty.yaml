@@ -1,5 +1,6 @@
 ---
-- name: Install necessary prerequisite packages
+- name: Install necessary prerequisite packages for ghostty
+  become: yes
   apt:
     name:
       - gtk4
