@@ -47,6 +47,11 @@
           - libxkbcommon-dev
           - python3
           - jq
+          - libgtk-4-dev
+          - libadwaita-1-dev
+          - blueprint-compiler
+          - gettext
+          - libxml2-utils
         state: present
       tags:
         - packages
