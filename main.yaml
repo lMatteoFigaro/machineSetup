@@ -74,6 +74,11 @@
       tags:
         - packages
         - zig
+    - name: Build ghostty
+      import_tasks: ghostty.yaml
+      tags:
+        - packages
+        - ghostty
     - name: Install chrome latest
       import_tasks: chrome.yaml
       tags:

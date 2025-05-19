@@ -1,0 +1,36 @@
+---
+- name: Install necessary prerequisite packages
+  apt:
+    name:
+      - libnss3-tools # As identified in your manual steps
+      - iptables # As identified in your manual steps
+      # Add any other necessary dependencies here if they are not pulled in automatically
+    state: present
+    update_cache: yes # Ensure apt knows about these packages
+- name: Clone Ghostty source code
+  git:
+    repo: https://github.com/ghostty-org/ghostty
+    dest: "/home/{{ ansible_user_id }}/dev/ghostty" # Clone to the user's home directory
+  become: no # Clone as the user
+- name: Build and install Alacritty using cargo install
+  shell: |
+    #!/bin/bash
+    cd "/home/{{ ansible_user_id }}/ghostty"
+    zig build -Doptimize=ReleaseFast
+  args:
+    executable: /bin/bash
+    creates: "/home/{{ ansible_user_id }}/ghostty/zig-out/bin/ghostty" # Make task idempotent
+  register: zig_build
+  become: no # Run as the user
+- name: Move compiled Ghostty executable to system directory and set permissions
+  ansible.builtin.copy:
+    src: "/home/{{ ansible_user }}/ghostty/zig-out/bin/ghostty" # Source path in user's home
+    dest: "/opt/ghostty/ghostty" # Destination path in system directory
+    mode: "0755" # Set permissions to owner rwx, group rx, others rx (execute for all)
+  become: yes # Need root privileges to write to /opt/
+- name: Create a symlink for the ghostty executable
+  ansible.builtin.file:
+    src: "/opt/ghostty/ghostty" # The path to the actual ghostty executable
+    dest: "/usr/local/bin/ghostty" # The path where the symlink will be created (in a common PATH directory)
+    state: link # Specifies that we want to create a symbolic link
+  become: yes # Need root privileges to write to /usr/local/bin/
