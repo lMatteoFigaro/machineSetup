@@ -1,18 +1,8 @@
 # This file contains tasks for installing the Elasticvue AppImage
-
-- name: Get the latest Elasticvue release information (optional but useful)
-  uri:
-    url: https://api.github.com/repos/cars10/elasticvue/releases/latest
-    return_content: yes
-  register: elasticvue_latest_release
-  changed_when: false
-  delegate_to: localhost # Run this task on the Ansible control machine
-
 - name: Set Elasticvue AppImage download URL and filename
   set_fact:
-    elasticvue_version: "{{ elasticvue_latest_release.json.tag_name | trim_prefix('v') }}"
-    elasticvue_appimage_filename: "elasticvue_{{ elasticvue_version }}_amd64.AppImage"
-    elasticvue_appimage_url: "https://github.com/cars10/elasticvue/releases/download/v{{ elasticvue_version }}/{{ elasticvue_appimage_filename }}"
+    elasticvue_appimage_filename: "elasticvue_1.7.0_amd64.AppImage"
+    elasticvue_appimage_url: "https://github.com/cars10/elasticvue/releases/download/v1.7.0/elasticvue_1.7.0_amd64.AppImage"
 
 - name: Ensure AppImage destination directory exists
   file:
