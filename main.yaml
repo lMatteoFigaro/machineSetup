@@ -94,6 +94,11 @@
       tags:
         - packages
         - vscode
+    - name: Install gcp cli
+      import_tasks: gcpCli.yaml
+      tags:
+        - packages
+        - gcpCli
     - name: Install slack latest
       import_tasks: slack.yaml
       tags:

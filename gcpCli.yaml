@@ -1,0 +1,43 @@
+# This file contains tasks for installing the Google Cloud CLI from tar.gz
+
+- name: Set Google Cloud CLI download URL
+  set_fact:
+    # Assuming you want the latest "Linux 64-bit (x86_64)" rapid release
+    gcloud_download_url: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz"
+
+- name: Ensure Google Cloud CLI install directory exists
+  file:
+    path: /opt/google-cloud-sdk # Standard install location
+    state: directory
+    mode: "0755"
+  become: yes # Need root to create directory in /opt/
+
+- name: Download Google Cloud CLI archive
+  get_url:
+    url: "{{ gcloud_download_url }}" # Use the dynamic URL
+    # url: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz # Or use a static URL
+    dest: /tmp/google-cloud-cli-latest.tar.gz
+    mode: "0644"
+    # Consider adding checksum verification here if you can get it from the version info or documentation
+
+- name: Extract Google Cloud CLI archive
+  unarchive:
+    src: /tmp/google-cloud-cli-latest.tar.gz
+    dest: /opt/google-cloud-sdk/ # Extract to /opt/google-cloud-sdk/
+    remote_src: yes
+    extra_opts: [--strip-components=1] # Strip the top-level directory (usually 'google-cloud-sdk')
+
+# Note: The installer script normally handles setting up symlinks/PATH.
+# However, for system-wide access, we'll create our own symlink in /usr/local/bin/
+
+- name: Create a symlink for the gcloud executable
+  file:
+    src: "/opt/google-cloud-sdk/bin/gcloud" # Path to the gcloud executable within the extracted directory
+    dest: "/usr/local/bin/gcloud" # Link in a directory in the system's PATH
+    state: link
+  become: yes # Need root to write to /usr/local/bin/
+
+- name: Clean up downloaded archive (optional)
+  file:
+    path: /tmp/google-cloud-cli-latest.tar.gz
+    state: absent
