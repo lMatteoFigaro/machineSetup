@@ -21,6 +21,7 @@
     # Consider adding checksum verification here if you can get it from the version info or documentation
 
 - name: Extract Google Cloud CLI archive
+  become: yes
   unarchive:
     src: /tmp/google-cloud-cli-latest.tar.gz
     dest: /opt/google-cloud-sdk/ # Extract to /opt/google-cloud-sdk/
