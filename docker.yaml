@@ -30,10 +30,22 @@
     - docker
     - prerequisites
 
-- name: Add Docker GPG key
-  ansible.builtin.apt_key:
+- name: Create directory for APT keyrings
+  ansible.builtin.file:
+    path: /etc/apt/trusted.gpg.d
+    state: directory
+    mode: "0755"
+  tags:
+    - packages
+    - docker
+    - apt-key
+
+- name: Download the Docker GPG key
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/debian/gpg
-    state: present
+    dest: /etc/apt/trusted.gpg.d/docker.gpg # Save the key file directly
+    mode: "0644" # Standard permissions for key files
+    # You could potentially add checksum here if the key's checksum is published
   tags:
     - packages
     - docker
