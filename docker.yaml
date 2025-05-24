@@ -1,0 +1,93 @@
+# This file contains tasks for installing Docker Engine
+
+- name: Uninstall old versions of Docker (if they exist)
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+    state: absent
+    purge: yes # Remove configuration files as well
+  ignore_errors: yes # Continue if old versions are not found
+  tags:
+    - packages
+    - docker
+    - uninstall
+
+- name: Install packages required for adding Docker repository
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+    update_cache: yes
+  tags:
+    - packages
+    - docker
+    - prerequisites
+
+- name: Add Docker GPG key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  tags:
+    - packages
+    - docker
+    - apt-key
+
+- name: Add Docker APT repository
+  apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    state: present
+    filename: docker # Give the repository file a specific name
+  tags:
+    - packages
+    - docker
+    - apt-sources
+
+- name: Update apt cache after adding Docker repository
+  apt:
+    update_cache: yes
+  tags:
+    - packages
+    - docker
+
+- name: Install Docker Engine and related packages
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      # - docker-buildx-plugin # Optional: Install Buildx plugin
+      # - docker-compose-plugin # Optional: Install Compose plugin (recommended)
+    state: present
+    update_cache: yes # Update again after initial cache update
+  tags:
+    - packages
+    - docker
+    - install
+
+- name: Ensure Docker service is running and enabled
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  tags:
+    - packages
+    - docker
+    - service
+
+# Optional: Add the regular user to the docker group to run docker without sudo
+- name: Add user "{{ ansible_user }}" to the docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes # Append to existing groups
+  tags:
+    - packages
+    - docker
+    - user-config

@@ -78,6 +78,12 @@
       tags:
         - packages
         - gcpCli
+    - name: Install docker cli
+      become: yes
+      import_tasks: docker.yaml
+      tags:
+        - packages
+        - docker
     - name: Import ziglang installation tasks
       import_tasks: zig.yaml
       become: yes
