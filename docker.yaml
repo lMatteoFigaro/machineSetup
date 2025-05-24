@@ -94,7 +94,7 @@
     - service
 
 # Optional: Add the regular user to the docker group to run docker without sudo
-- name: Add user "{{ ansible_user }}" to the docker group
+- name: Add user "{{ ansible_user_id }}" to the docker group
   user:
     name: "{{ ansible_user }}"
     groups: docker
