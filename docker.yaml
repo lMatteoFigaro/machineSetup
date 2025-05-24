@@ -96,7 +96,7 @@
 # Optional: Add the regular user to the docker group to run docker without sudo
 - name: Add user "{{ ansible_user_id }}" to the docker group
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_user_id }}"
     groups: docker
     append: yes # Append to existing groups
   tags:
