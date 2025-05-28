@@ -52,6 +52,7 @@
           - blueprint-compiler
           - gettext
           - libxml2-utils
+          - maim
         state: present
       tags:
         - packages
