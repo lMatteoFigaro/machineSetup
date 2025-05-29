@@ -11,7 +11,4 @@
     $HOME/.cargo/bin/cargo install alacritty
   args:
     executable: /bin/bash
-    creates: "$HOME/.cargo/bin/alacritty" # Make task idempotent
-  register: cargo_install_output
-  changed_when: "'Installed package alacritty' in cargo_install_output.stdout or 'Replacing' in cargo_install_output.stdout" # Basic idempotency check
   become: no # Run as the user

@@ -3,9 +3,6 @@
 
   vars:
     nvim_install_dir: /opt/nvim # Directory where Neovim will be installed
-    alacritty_version: 0.13.0 # Specify the desired version
-    alacritty_release_url: "https://github.com/alacritty/alacritty/releases/download/v{{ alacritty_version }}/alacritty-linux-x86_64-unknown-linux-gnu.tar.gz"
-    alacritty_install_dir: /opt/alacritty # Where to install the files
 
   tasks:
     - name: Upgrade all installed packages
@@ -122,6 +119,11 @@
         executable: /bin/bash
         creates: "$HOME/.rustup/bin/rustup" # Adjust path if needed if you change install location
       become: no # IMPORTANT: Run as the user
+      tags:
+        - packages
+        - rust
+        - cargo
+        - alacritty
     - name: Install alacritty
       import_tasks: alacritty.yaml
       tags:
