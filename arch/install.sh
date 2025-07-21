@@ -35,21 +35,21 @@ sudo systemctl enable docker --now
 
 # VS Code (using AUR)
 echo "--- Installing VS Code (visual-studio-code-bin) from AUR ---"
-$INSTALL_YAY visual-studio-code-bin
+$INSTALL_AUR visual-studio-code-bin
 
 # Slack (using AUR)
 echo "--- Installing Slack from AUR ---"
-$INSTALL_YAY slack-desktop
+$INSTALL_AUR slack-desktop
 
 # Zed Editor (using AUR, package name might vary, common is zed-editor)
 echo "--- Installing Zed Editor from AUR ---"
-$INSTALL_YAY zed-editor # Adjust package name if needed
+$INSTALL_AUR zed-editor # Adjust package name if needed
 
 # Chrome (using AUR)
 echo "--- Installing Google Chrome (google-chrome) from AUR ---"
-$INSTALL_YAY google-chrome
+$INSTALL_AUR google-chrome
 
-$INSTALL_YAY zen-browser-bin
+$INSTALL_AUR zen-browser-bin
 
 # --- User-specific Configurations (NVM, Oh My Zsh) ---
 
