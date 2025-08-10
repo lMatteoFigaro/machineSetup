@@ -11,9 +11,20 @@ $INSTALL
 # --- Core Utilities and Development Packages ---
 echo "--- Installing common utilities and development packages ---"
 $INSTALL git base-devel nano curl vim htop tmux fzf ripgrep stow pavucontrol zsh xsel xclip cmake pkg-config freetype2 jq
-$INSTALL hyprland hyprpaper hypridle hyprlock mako pipewire wireplumber xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland qt6-wayland noto-fonts waybar yay grim slurp wofi nautilus
+$INSTALL hyprland hyprpaper hypridle hyprlock mako pipewire wireplumber xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland qt6-wayland noto-fonts waybar grim slurp wofi nautilus
 $INSTALL ghostty 
 $INSTALL neovim 
+$INSTALL openssh 
+
+
+# Install yay
+mkdir ~/dev
+cd ~/dev
+
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
 
 
 $INSTALL_AUR xdg-desktop-portal-hyprland-git
