@@ -11,7 +11,7 @@ $INSTALL
 # --- Core Utilities and Development Packages ---
 echo "--- Installing common utilities and development packages ---"
 $INSTALL git base-devel nano curl vim htop tmux fzf ripgrep stow pavucontrol zsh xsel xclip cmake pkg-config freetype2 jq
-$INSTALL hyprland hyprpaper hypridle hyprlock mako pipewire wireplumber xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland qt6-wayland noto-fonts waybar grim slurp wofi nautilus
+$INSTALL hyprland hyprpaper hypridle hyprlock mako pipewire wireplumber hyprpolkitagent qt5-wayland qt6-wayland noto-fonts waybar grim slurp wofi nautilus pipewire-pulse iwd impala
 $INSTALL ghostty 
 $INSTALL neovim 
 $INSTALL openssh 
@@ -64,6 +64,7 @@ $INSTALL_AUR zen-browser-bin
 
 # --- User-specific Configurations (NVM, Oh My Zsh) ---
 
+$INSTALL_AUR wdisplays
 
 
 echo "install ho my zsh"
