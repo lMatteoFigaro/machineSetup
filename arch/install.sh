@@ -11,7 +11,7 @@ $INSTALL
 # --- Core Utilities and Development Packages ---
 echo "--- Installing common utilities and development packages ---"
 $INSTALL git base-devel nano curl vim htop tmux fzf ripgrep stow pavucontrol zsh xsel xclip cmake pkg-config freetype2 jq
-$INSTALL hyprland hyprpaper hypridle hyprlock mako pipewire wireplumber hyprpolkitagent qt5-wayland qt6-wayland noto-fonts waybar grim slurp wofi nautilus pipewire-pulse iwd impala
+$INSTALL hyprland hyprpaper hypridle hyprlock mako pipewire wireplumber hyprpolkitagent qt5-wayland qt6-wayland noto-fonts waybar grim slurp wofi nautilus pipewire-pulse iwd impala rsync
 $INSTALL ghostty 
 $INSTALL neovim 
 $INSTALL openssh 
@@ -35,6 +35,7 @@ $INSTALL go
 $INSTALL rust 
 $INSTALL zig 
 $INSTALL nvm 
+$INSTALL zed 
 
 
 # Docker CLI
@@ -51,10 +52,6 @@ $INSTALL_AUR visual-studio-code-bin
 # Slack (using AUR)
 echo "--- Installing Slack from AUR ---"
 $INSTALL_AUR slack-desktop
-
-# Zed Editor (using AUR, package name might vary, common is zed-editor)
-echo "--- Installing Zed Editor from AUR ---"
-$INSTALL_AUR zed-editor # Adjust package name if needed
 
 # Chrome (using AUR)
 echo "--- Installing Google Chrome (google-chrome) from AUR ---"
