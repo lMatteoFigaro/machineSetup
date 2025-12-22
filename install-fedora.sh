@@ -41,6 +41,8 @@ print_info "Starting Fedora machine setup..."
 print_info "Updating system packages..."
 dnf update -y
 
+dnf copr enable scottames/ghostty
+
 # Install common utilities and development packages
 print_info "Installing common utilities and development packages..."
 dnf install -y \
