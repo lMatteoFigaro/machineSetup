@@ -105,6 +105,9 @@ curl -L https://downloads.slack-edge.com/desktop-releases/linux/x64/4.47.69/slac
 dnf install -y ./slack-latest.rpm
 rm -f slack-latest.rpm
 
+curl -fsSL https://opencode.ai/install | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
 print_info "Installation complete!"
 print_warn "Please log out and log back in for group membership changes to take effect (docker group for $CURRENT_USER)"
 print_warn "Also run 'source ~/.bashrc' or open a new terminal to use the newly installed tools"
