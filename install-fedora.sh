@@ -105,6 +105,13 @@ curl -L https://downloads.slack-edge.com/desktop-releases/linux/x64/4.47.69/slac
 dnf install -y ./slack-latest.rpm
 rm -f slack-latest.rpm
 
+# Install Helium web browser
+print_info "Installing Helium web browser..."
+cd /tmp
+curl -L https://github.com/imputnet/helium-linux/releases/download/0.7.7.1/helium-0.7.7.1-x86_64.AppImage -o helium.AppImage
+chmod +x helium.AppImage
+mv helium.AppImage /usr/local/bin/helium
+
 curl -fsSL https://opencode.ai/install | bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
