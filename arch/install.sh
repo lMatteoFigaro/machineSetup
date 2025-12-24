@@ -8,6 +8,10 @@ INSTALL_AUR="yay -S --noconfirm"
 echo "--- Updating system package database and upgrading all packages ---"
 $INSTALL
 
+$INSTALL reflector
+
+sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
 # --- Core Utilities and Development Packages ---
 echo "--- Installing common utilities and development packages ---"
 $INSTALL git base-devel nano curl vim htop tmux fzf ripgrep stow pavucontrol zsh cmake pkg-config freetype2 jq
@@ -17,8 +21,6 @@ $INSTALL neovim
 $INSTALL openssh 
 $INSTALL pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
 $INSTALL wl-clipboard
-
-
 
 # Install yay
 mkdir ~/dev
@@ -30,7 +32,7 @@ cd yay
 makepkg -si
 
 
-$INSTALL_AUR xdg-desktop-portal-hyprland-git
+$INSTALL xdg-desktop-portal-hyprland
 
 # --- Language Runtimes and Tooling ---
 
@@ -45,12 +47,6 @@ $INSTALL zed
 echo "--- Enabling and starting Docker service ---"
 $INSTALL docker docker-compose
 sudo systemctl enable docker --now
-
-
-
-# VS Code (using AUR)
-echo "--- Installing VS Code (visual-studio-code-bin) from AUR ---"
-$INSTALL_AUR visual-studio-code-bin
 
 # Slack (using AUR)
 echo "--- Installing Slack from AUR ---"
@@ -67,6 +63,6 @@ $INSTALL_AUR zen-browser-bin
 $INSTALL_AUR wdisplays
 
 
-echo "install ho my zsh"
+#echo "install ho my zsh"
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
