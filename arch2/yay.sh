@@ -9,3 +9,4 @@ yay -S --noconfirm hyprmon-bin
 yay -S --noconfirm slack-desktop
 
 yay -S --noconfirm forticlient-vpn
+#https://community.fortinet.com/t5/FortiClient/Technical-Tip-How-to-use-FortiClient-SSL-VPN-from-the-CLI/ta-p/192581?externalID=FD41256
