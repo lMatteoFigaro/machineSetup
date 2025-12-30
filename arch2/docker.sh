@@ -2,7 +2,7 @@
 
 sudo pacman -Syu --noconfirm
 # Install Docker
-sudo pacman -S docker docker-compose --noconfirm
+sudo pacman -S docker docker-compose --noconfirm kubectl
 
 sudo systemctl enable --now docker.service
 
