@@ -23,7 +23,7 @@ cat <<EOF >> "$PROFILE_FILE"
 
 # Start Hyprland automatically on TTY1
 if [ -z "\$DISPLAY" ] && [ "\$(tty)" = "/dev/tty1" ]; then
-    exec Hyprland
+    exec start-hyprland
 fi
 EOF
 
