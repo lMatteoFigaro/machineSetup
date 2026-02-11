@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-URL="https://github.com/imputnet/helium-linux/releases/download/0.7.7.1/helium-0.7.7.1-x86_64.AppImage"
+URL="https://github.com/imputnet/helium-linux/releases/download/0.8.5.1/helium-0.8.5.1-x86_64.AppImage"
 DEST="/usr/local/bin/helium"
 DESKTOP_FILE="/usr/share/applications/helium.desktop"
 
